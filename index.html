@@ -1,0 +1,76 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+        <title>星环博客 · 三维粒子之境</title>
+        
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+        <link rel="stylesheet" href="css/page-style.css">
+        <link rel="stylesheet" href="css/markdown-style.css">
+
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+    </head>
+    <body>
+        <header>
+        <div class="global-nav" id="globalNav">
+            <div class="nav-logo">
+                <h1>✦ 维度日志</h1>
+                <p>Alex Chen · 创意开发 · 三维叙事</p>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="#" class="nav-link">首页</a>
+                <a href="#" class="nav-link">归档</a>
+                <a href="#" class="nav-link">关于</a>
+                <a href="#" class="nav-link" id="navBackTo3D">三维</a>
+            </div>
+        </div>
+        </header>
+
+        <div id="canvas-container"></div>
+
+        <div id="article-modal">
+            <div class="modal-header">
+                <div id="modal-title">文章标题加载中...</div>
+                <div class="close-btn" onclick="closeArticle()">✕</div>
+            </div>
+            <div id="modal-content">正在加载文章内容...</div>
+            <div class="modal-footer">
+                <button onclick="closeArticle()">关闭</button>
+            </div>
+        </div>
+
+        <div class="blog-list-view" id="blogListView">
+            <div class="container">
+                <div class="profile-card">
+                    <div class="avatar">VK</div>
+                    <div class="profile-info">
+                        <h1>VKyuXr</h1>
+                        <p class="bio">创意开发者 · 三维艺术爱好者 · 代码诗人</p>
+                        <div class="social-links">
+                            <a href="#">GitHub</a>
+                            <!-- <a href="#">Twitter</a> -->
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">最新漫游</h2>
+                <div class="blog-grid" id="blogGrid"></div>
+                
+                <footer>
+                    <p>© 2025 维度日志</p>
+                </footer>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+        
+        <script type="module" src="js/blog-loader.js"></script>
+        <script type= module src="js/blog-render.js"></script>
+    </body>
+</html>

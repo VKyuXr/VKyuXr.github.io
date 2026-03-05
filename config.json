@@ -1,0 +1,34 @@
+[
+  {
+    "id": "Articles-1",
+    "title": "Three.js 粒子星云的调色魔法",
+    "date": "2025-02-18",
+    "category": "三维编程",
+    "excerpt": "如何用着色器创造出梦幻的星云背景，并让鼠标与粒子对话。从缓冲区到颜色渐变，一步步构建动态宇宙...",
+    "file": "articles/Articles-1.md"
+  },
+  {
+    "id": "Articles-2",
+    "title": "基于 WebGL 的沉浸式博客构建",
+    "date": "2025-02-10",
+    "category": "交互设计",
+    "excerpt": "让博客不只是文字：使用 Three.js 搭建背景空间，结合 CSS 毛玻璃，创造层次丰富的阅读体验。",
+    "file": "articles/Articles-2.md"
+  },
+  {
+    "id": "Articles-3",
+    "title": "着色器中的噪声与波动",
+    "date": "2025-02-01",
+    "category": "图形学笔记",
+    "excerpt": "模拟流体、云朵和粒子运动，在片元着色器中实现 perlin 噪声，并整合到 Three.js 自定义材质中。",
+    "file": "articles/Articles-3.md"
+  },
+  {
+    "id": "Articles-4",
+    "title": "Blender → Three.js 工作流",
+    "date": "2025-01-22",
+    "category": "工具分享",
+    "excerpt": "从模型制作到 gltf 优化，再到在网页中实现动态光照与动画，完整导出管线经验谈。",
+    "file": "articles/Articles-4.md"
+  }
+]

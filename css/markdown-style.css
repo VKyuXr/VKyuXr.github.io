@@ -1,0 +1,6 @@
+#modal-content img { max-width: 100%; border-radius: 8px; }
+#modal-content pre { background: #1e1e1e; padding: 1rem; border-radius: 6px; overflow-x: auto; color: #d4d4d4; }
+#modal-content code { font-family: 'Consolas', monospace; background: rgba(255,255,255,0.1); padding: 2px 4px; border-radius: 4px; }
+#modal-content blockquote { border-left: 4px solid #646cff; margin: 1rem 0; padding-left: 1rem; color: #aaa; }
+#modal-content h1, #modal-content h2 { margin-top: 1.5rem; color: #fff; }
+#modal-content p { line-height: 1.8; color: #ccc; }
