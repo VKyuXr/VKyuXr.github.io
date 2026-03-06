@@ -4,53 +4,78 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-
         <title>vkyuxr's blog</title>
         
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
         <link rel="stylesheet" href="css/page-style.css">
         <link rel="stylesheet" href="css/markdown-style.css">
 
         <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+        
+        <style>
+            * {
+                cursor: none !important;
+            }
+            #cursor-dot, #cursor-ring {
+                position: fixed;
+                top: 0;
+                left: 0;
+                pointer-events: none;
+                z-index: 9999;
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                mix-blend-mode: difference;
+            }
+            #cursor-dot {
+                width: 20px;
+                height: 20px;
+                background-color: #8a6eff;
+                transition: width 0.2s, height 0.2s;
+            }
+            #cursor-ring {
+                width: 50px;
+                height: 50px;
+                border: 1px solid #8a6eff;
+                transition: width 0.3s, height 0.3s, border-color 0.3s;
+            }
+        </style>
     </head>
     <body>
+        <div id="cursor-dot"></div>
+        <div id="cursor-ring"></div>
+
+        <div id="backgroundCanvas"></div>
+
         <header>
-            <div class="global-nav" id="globalNav">
-                <div class="nav-logo">
-                    <h1 style="font-family: 'Times New Roman', Times, serif;">REVERSE</h1>
-                    <p style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 1.2rem;">vkyuxr's blog</p>
+            <div id="globalBar" class="global-bar">
+                <div class="bar-logo">
+                    <h1>REVERSE</h1>
+                    <p>vkyuxr's blog</p>
                 </div>
-                <div class="nav-menu" id="navMenu">
-                    <a href="#" class="nav-link">首页</a>
-                    <a href="#" class="nav-link">待定页面1</a>
-                    <a href="#" class="nav-link">待定页面2</a>
-                    <a href="#" class="nav-link" id="navBackTo3D">回到封面</a>
+                <div id="barMenu" class="bar-menu">
+                    <a href="#" class="bar-link hover-trigger">首页</a>
+                    <a href="#" class="bar-link hover-trigger" id="navBackTo3D">回到封面</a>
                 </div>
             </div>
         </header>
 
-        <div id="canvas-container">
-
-        <div id="article-modal">
-            <div class="modal-header">
-                <div id="modal-title">正在加载文章标题...</div>
-                <div class="close-btn" onclick="closeArticle()">✕</div>
-            </div>
-            <div id="modal-content">正在加载文章内容...</div>
+        <div id="articleModal">
+            <div id="modalTitle" class="modal-header">正在加载文章标题...</div>
+            <div id="modalContent">正在加载文章内容...</div>
         </div>
 
-        <div id="article-overlay"></div>
+        <div id="articleOverlay"></div>
 
-        <div class="blog-list-view" id="blogListView">
+        <div id="blogMainView" class="blog-main-view">
             <div class="container">
                 <div class="profile-card">
                     <div class="avatar">VK</div>
                     <div class="profile-info">
                         <h1>VKyuXr</h1>
-                        <p class="bio">闲人 · 闲人</p>
+                        <p class="bio">闲人</p>
                         <div class="social-links">
-                            <a href="https://github.com/VKyuXr" target="_blank" rel="noopener noreferrer">GitHub</a>
+                            <a href="https://github.com/VKyuXr" target="_blank" rel="noopener noreferrer" class="hover-trigger">GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -63,9 +88,7 @@
                 
                 <footer>
                     <nav class="footer-nav">
-                        <a href="#">首页</a>
-                        <a href="#">待定页面1</a>
-                        <a href="#">待定页面2</a>
+                        <a href="#" class="hover-trigger">首页</a>
                     </nav>
                 </footer>
             </div>
@@ -76,6 +99,41 @@
         <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
         
         <script type="module" src="js/blog-loader.js"></script>
-        <script type= module src="js/blog-render.js"></script>
+        <script type="module" src="js/blog-render.js"></script>
+        
+        <script>
+            (function() {
+                const cursorDot = document.getElementById('cursor-dot');
+                const cursorRing = document.getElementById('cursor-ring');
+                let mouseX = 0, mouseY = 0;
+                let ringX = 0, ringY = 0;
+
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                    
+                    cursorDot.style.left = mouseX + 'px';
+                    cursorDot.style.top = mouseY + 'px';
+                });
+
+                function animateCursor() {
+                    ringX += (mouseX - ringX) * 0.15;
+                    ringY += (mouseY - ringY) * 0.15;
+                    
+                    cursorRing.style.left = ringX + 'px';
+                    cursorRing.style.top = ringY + 'px';
+                    
+                    requestAnimationFrame(animateCursor);
+                }
+                animateCursor();
+
+                // const interactables = document.querySelectorAll('a, button, .blog-card, .hover-trigger');
+                // interactables.forEach(el => {
+                //     el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+                //     el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+                // });
+            })();
+        </script>
+
     </body>
 </html>

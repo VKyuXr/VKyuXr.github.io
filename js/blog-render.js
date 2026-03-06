@@ -40,7 +40,7 @@ camera.position.set(8, 3, 15);
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-document.getElementById('canvas-container').appendChild(renderer.domElement);
+document.getElementById('backgroundCanvas').appendChild(renderer.domElement);
 
 const ambientLight = new THREE.AmbientLight(0x40406b);
 scene.add(ambientLight);
@@ -111,8 +111,8 @@ function createParticleSystem() {
     
     const points = new THREE.Points(geo, mat);
     points.userData = {
-        upperBound: 15,
-        lowerBound: -15,
+        upperBound: 10,
+        lowerBound: -10,
         horizontalRange: 20
     };
     return points;
@@ -126,8 +126,8 @@ function updateParticlesUpward(points, isRising, delta, elapsedTime) {
     const positions = points.geometry.attributes.position;
     const velocities = points.geometry.attributes.velocity;
     const bounds = points.userData || { 
-        upperBound: 15, 
-        lowerBound: -15, 
+        upperBound: 10, 
+        lowerBound: -10, 
         horizontalRange: 20 
     };
     
@@ -140,16 +140,7 @@ function updateParticlesUpward(points, isRising, delta, elapsedTime) {
         
         if (positions.array[idx + 1] > bounds.upperBound) {
             positions.array[idx + 1] = bounds.lowerBound;
-            // if (isRising) {
-            //     positions.array[idx] += (Math.random() - 0.5) * 0.3;
-            //     positions.array[idx + 2] += (Math.random() - 0.5) * 0.3;
-            // }
         }
-        
-        // if (isRising) {
-        //     positions.array[idx] += Math.sin(elapsedTime * 0.5 + i * 0.1) * 0.003;
-        //     positions.array[idx + 2] += Math.cos(elapsedTime * 0.3 + i * 0.1) * 0.003;
-        // }
     }
     
     positions.needsUpdate = true;
@@ -168,7 +159,6 @@ function createBackgroundParticles() {
         positions[i*3+1] = r * Math.sin(phi) * Math.sin(theta) * 0.5;
         positions[i*3+2] = r * Math.cos(phi);
         
-        // 背景粒子速度稍慢
         velocities[i] = 0.01 + Math.random() * 0.03;
     }
     
@@ -187,8 +177,8 @@ function createBackgroundParticles() {
     
     const points = new THREE.Points(geo, mat);
     points.userData = {
-        upperBound: 25,
-        lowerBound: -25,
+        upperBound: 10,
+        lowerBound: -10,
         horizontalRange: 40
     };
     return points;
@@ -359,7 +349,7 @@ function onMouseMove(event) {
 }
 
 function onClick(event) {
-    if (event.target.closest('#article-modal') || event.target.closest('.blog-list-view')) return;
+    if (event.target.closest('#articleModal') || event.target.closest('.blog-main-view')) return;
 
     if (!cardsGroup.visible) return;
 
@@ -382,8 +372,8 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-const blogListView = document.getElementById('blogListView');
-const globalNav = document.getElementById('globalNav');
+const blogMainView = document.getElementById('blogMainView');
+const globalBar = document.getElementById('globalBar');
 const navBackTo3D = document.getElementById('navBackTo3D');
 let isBlogViewActive = false;
 
@@ -394,10 +384,9 @@ function showBlogView() {
     cardsTransition.targetOpacity = 0;
     cardsTransition.targetVisible = false;
     
-    blogListView.classList.add('active');
-    document.body.style.overflow = 'auto';
+    blogMainView.classList.add('active');
     if (controls) controls.autoRotate = false;
-    globalNav.classList.add('blog-mode');
+    globalBar.classList.add('blog-mode');
 }
 
 function show3DView() {
@@ -408,14 +397,18 @@ function show3DView() {
     cardsTransition.targetVisible = true;
     cardsGroup.visible = true;
     
-    blogListView.classList.remove('active');
+    blogMainView.classList.remove('active');
     document.body.style.overflow = 'hidden';
     if (controls) controls.autoRotate = true;
-    globalNav.classList.remove('blog-mode');
+    globalBar.classList.remove('blog-mode');
 }
 
 let isScrolling = false;
 window.addEventListener('wheel', (e) => {
+    if (document.body.classList.contains('no-scroll')) {
+        return;
+    }
+
     if (isScrolling) return;
     isScrolling = true;
     setTimeout(() => isScrolling = false, 300);
@@ -427,8 +420,8 @@ window.addEventListener('wheel', (e) => {
         triggerParticleRise();
         
     } else if (isBlogViewActive && deltaY < 0) {
-        const container = blogListView;
-        if (container.scrollTop <= 0) {
+        const container = blogMainView;
+        if (container && container.scrollTop <= 0) {
             show3DView();
         }
     }
@@ -456,7 +449,7 @@ blogCards.forEach(card => {
 document.body.style.overflow = 'hidden';
 show3DView();
 
-document.querySelectorAll('.nav-menu a:not(#navBackTo3D)').forEach(link => {
+document.querySelectorAll('.bar-menu a:not(#navBackTo3D)').forEach(link => {
     link.addEventListener('click', (e) => e.preventDefault());
 });
 
