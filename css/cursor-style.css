@@ -62,10 +62,6 @@
     animation: rotate-ccw 4s linear infinite;
 }
 
-.hover-trigger {
-    transition: color 0.2s ease;
-}
-
 .hover-trigger:hover ~ #cursor-dot,
 .hover-trigger:hover ~ #cursor-ring,
 body:has(.hover-trigger:hover) #cursor-dot {

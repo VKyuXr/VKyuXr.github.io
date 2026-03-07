@@ -4,7 +4,7 @@
     {
       "title": "REVERSE网站说明书",
       "date": "2026-03-07",
-      "category": "笔记",
+      "category": "REVERSE Website Manual",
       "excerpt": "写于2026年3月7日",
       "file": "articles/REVERSE网站说明书.md"
     }
@@ -12,16 +12,14 @@
   "list":
   [
     {
-      "title": "Linux下Intel无线网卡驱动安装",
+      "title": "Ubuntu下Intel无线网卡驱动安装",
       "date": "2023-07-17",
-      "category": "笔记",
       "excerpt": "在Ubuntu操作系统下，进行Intel无线网卡的驱动安装",
       "file": "articles/Ubuntu下Intel无线网卡驱动安装.md"
     },
     {
       "title": "使用PowerShell清除重复文件",
       "date": "2023-07-12",
-      "category": "笔记",
       "excerpt": "使用PowerShell清除重复文件",
       "file": "articles/使用PowerShell清除重复文件.md"
     }

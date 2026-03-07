@@ -182,7 +182,7 @@ async function openArticle(post) {
     document.documentElement.classList.add('no-scroll');
 
     titleEl.textContent = post.title;
-    contentEl.innerHTML = '<div class="loading-text">🌌 正在从星云下载数据...</div>';
+    contentEl.innerHTML = '<div class="loading-text">正在从星云下载数据...</div>';
     
     modal.style.display = 'flex';
     if (overlay) overlay.style.display = 'block';
