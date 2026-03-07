@@ -9,41 +9,19 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
         <link rel="stylesheet" href="css/page-style.css">
         <link rel="stylesheet" href="css/markdown-style.css">
+        <link rel="stylesheet" href="css/cursor-style.css">
 
         <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
-        
-        <style>
-            * {
-                cursor: none !important;
-            }
-            #cursor-dot, #cursor-ring {
-                position: fixed;
-                top: 0;
-                left: 0;
-                pointer-events: none;
-                z-index: 9999;
-                border-radius: 50%;
-                transform: translate(-50%, -50%);
-                mix-blend-mode: difference;
-            }
-            #cursor-dot {
-                width: 20px;
-                height: 20px;
-                background-color: #8a6eff;
-                transition: width 0.2s, height 0.2s;
-            }
-            #cursor-ring {
-                width: 50px;
-                height: 50px;
-                border: 1px solid #8a6eff;
-                transition: width 0.3s, height 0.3s, border-color 0.3s;
-            }
-        </style>
     </head>
     <body>
         <div id="cursor-dot"></div>
-        <div id="cursor-ring"></div>
+        <svg id="cursor-ring" viewBox="0 0 50 50">
+            <g class="triangles">
+                <path d="M25 1 L46 37 L4 37 Z" class="triangle-1" stroke-linejoin="miter"/>
+                <path d="M25 49 L46 13 L4 13 Z" class="triangle-2" stroke-linejoin="miter"/>
+            </g>
+        </svg>
 
         <div id="backgroundCanvas"></div>
 
@@ -70,7 +48,7 @@
         <div id="blogMainView" class="blog-main-view">
             <div class="container">
                 <div class="profile-card">
-                    <div class="avatar">VK</div>
+                    <div class="avatar">VKX</div>
                     <div class="profile-info">
                         <h1>VKyuXr</h1>
                         <p class="bio">闲人</p>
@@ -80,10 +58,18 @@
                     </div>
                 </div>
 
-                <h2 class="section-title">置顶文章</h2>
+                <!-- <h2 class="section-title">置顶文章</h2> -->
+                <h2 class="section-title">
+                    <span class="text-zh">置顶文章</span>
+                    <span class="text-en">Pinned Posts</span>
+                </h2>
                 <div class="blog-grid" id="blogGrid"></div>
 
-                <h2 class="section-title">文章列表</h2>
+                <!-- <h2 class="section-title">文章列表</h2> -->
+                <h2 class="section-title">
+                    <span class="text-zh">置顶文章</span>
+                    <span class="text-en">Pinned Posts</span>
+                </h2>
                 <div class="blog-list" id="blogList"></div>
                 
                 <footer>
@@ -100,40 +86,6 @@
         
         <script type="module" src="js/blog-loader.js"></script>
         <script type="module" src="js/blog-render.js"></script>
-        
-        <script>
-            (function() {
-                const cursorDot = document.getElementById('cursor-dot');
-                const cursorRing = document.getElementById('cursor-ring');
-                let mouseX = 0, mouseY = 0;
-                let ringX = 0, ringY = 0;
-
-                document.addEventListener('mousemove', (e) => {
-                    mouseX = e.clientX;
-                    mouseY = e.clientY;
-                    
-                    cursorDot.style.left = mouseX + 'px';
-                    cursorDot.style.top = mouseY + 'px';
-                });
-
-                function animateCursor() {
-                    ringX += (mouseX - ringX) * 0.15;
-                    ringY += (mouseY - ringY) * 0.15;
-                    
-                    cursorRing.style.left = ringX + 'px';
-                    cursorRing.style.top = ringY + 'px';
-                    
-                    requestAnimationFrame(animateCursor);
-                }
-                animateCursor();
-
-                // const interactables = document.querySelectorAll('a, button, .blog-card, .hover-trigger');
-                // interactables.forEach(el => {
-                //     el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-                //     el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-                // });
-            })();
-        </script>
-
+        <script type="module" src="js/blog-cursor.js"></script>
     </body>
 </html>

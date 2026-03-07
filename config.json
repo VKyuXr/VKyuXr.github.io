@@ -2,47 +2,28 @@
   "top":
   [
     {
-      "id": "Articles-1",
-      "title": "Articles-1 Title",
-      "date": "2025-02-18",
-      "category": "Articles-1",
-      "excerpt": "Articles-1Articles-1Articles-1Articles-1Articles-1Articles-1Articles-1",
-      "file": "articles/Articles-1.md"
-    },
-    {
-      "id": "Articles-2",
-      "title": "Articles-2 Title",
-      "date": "2025-02-10",
-      "category": "Articles-2",
-      "excerpt": "Articles-2Articles-2Articles-2Articles-2Articles-2Articles-2Articles-2Articles-2",
-      "file": "articles/Articles-2.md"
-    },
-    {
-      "id": "Articles-3",
-      "title": "Articles-3 Title",
-      "date": "2025-02-01",
-      "category": "Articles-3",
-      "excerpt": "Articles-3Articles-3Articles-3Articles-3Articles-3Articles-3Articles-3Articles-3Articles-3Articles-3Articles-3",
-      "file": "articles/Articles-3.md"
+      "title": "REVERSE网站说明书",
+      "date": "2026-03-07",
+      "category": "笔记",
+      "excerpt": "写于2026年3月7日",
+      "file": "articles/REVERSE网站说明书.md"
     }
   ],
   "list":
   [
     {
-      "id": "Articles-4",
-      "title": "Articles-4 Title",
-      "date": "2025-01-22",
-      "category": "Articles-4",
-      "excerpt": "Articles-4Articles-4Articles-4Articles-4Articles-4Articles-4Articles-4Articles-4Articles-4",
-      "file": "articles/Articles-4.md"
+      "title": "Linux下Intel无线网卡驱动安装",
+      "date": "2023-07-17",
+      "category": "笔记",
+      "excerpt": "在Ubuntu操作系统下，进行Intel无线网卡的驱动安装",
+      "file": "articles/Ubuntu下Intel无线网卡驱动安装.md"
     },
     {
-      "id": "Articles-5",
-      "title": "Articles-5 Title",
-      "date": "2025-01-22",
-      "category": "Articles-5",
-      "excerpt": "Articles-5Articles-5Articles-5Articles-5",
-      "file": "articles/Articles-5.md"
+      "title": "使用PowerShell清除重复文件",
+      "date": "2023-07-12",
+      "category": "笔记",
+      "excerpt": "使用PowerShell清除重复文件",
+      "file": "articles/使用PowerShell清除重复文件.md"
     }
   ]
 }

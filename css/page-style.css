@@ -128,6 +128,7 @@ body.no-scroll {
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    font-family:'Gill Sans MT';
 }
 
 /* html.body.header.div.div.div.div.div.a */
@@ -386,16 +387,15 @@ footer {
 .avatar {
     width: 100px;
     height: 100px;
-    background: linear-gradient(145deg, #3a2a6a, #1e1e3f);
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3rem;
+    font-size: 5rem;
     font-weight: 600;
-    color: rgba(255,255,255,0.9);
-    border: 3px solid rgba(180, 160, 255, 0.8);
-    box-shadow: 0 0 30px #6d5fcf55;
+    color: rgba(255, 255, 255, 1.0);
+    border: 3px solid rgba(180, 160, 255, 1.0);
+    font-family:Impact;
+    margin-right: 1rem;
 }
 
 /* html.body.div.div.div.div.p: bio */
@@ -408,13 +408,24 @@ footer {
 /* html.body.div.div.h2: section-title */
 .section-title {
     font-size: 2rem;
-    font-weight: 600;
     margin-top: 2rem;
     margin-bottom: 2rem;
-    letter-spacing: -0.02em;
     border-left: 6px solid #8a6eff;
     padding-left: 1.5rem;
     background: linear-gradient(90deg, rgba(138,110,255,0.2), transparent);
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+}
+.section-title .text-zh {
+    letter-spacing: 0.2em;
+}
+.section-title .text-en {
+    font-family:'Times New Roman', Times, serif;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #8a6eff;
+    font-size: 1.2rem;
 }
 
 /* html.body.div.div.h2: blog-grid */
@@ -461,7 +472,9 @@ footer {
     border-radius: 15px;
     padding: 1.8rem;
     border: 1px solid rgba(255,255,255,0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: 
+        transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        box-shadow 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     box-shadow: 0 10px 30px -15px rgba(0,0,0,0.5);
     cursor: pointer;
 }

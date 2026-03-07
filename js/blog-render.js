@@ -22,11 +22,9 @@ function triggerParticleRise() {
     }
     
     particleState.isRising = true;
-    console.log('🌊 粒子上升动画触发');
     
     particleState.riseTimer = setTimeout(() => {
         particleState.isRising = false;
-        console.log('🌀 粒子恢复旋转模式');
     }, particleState.riseDuration);
 }
 
@@ -189,7 +187,7 @@ scene.add(bgParticles);
 const loader = new THREE.GLTFLoader();
 let HofmannKnot = null;
 loader.load(
-  'asset/HofmannKnot.glb',
+  'assets/HofmannKnot.glb',
   (gltf) => {
     HofmannKnot = gltf.scene;
     HofmannKnot.traverse((child) => {
@@ -207,7 +205,6 @@ loader.load(
     HofmannKnot.position.set(0, 1, 0);
     HofmannKnot.rotation.y = Math.PI / 4;
     scene.add(HofmannKnot);
-    console.log('✨ 金色绳结加载成功！');
   },
   (xhr) => {
     console.log(`加载进度 ${(xhr.loaded / xhr.total * 100)}%`);
@@ -270,7 +267,6 @@ async function init3DCards() {
     let posts = window.blogPostsData;
 
     if (!posts || posts.length === 0) {
-        console.log("⏳ 等待博客数据加载...");
         await new Promise((resolve) => {
             window.addEventListener('blog-data-ready', (e) => {
                 posts = e.detail;
@@ -285,11 +281,9 @@ async function init3DCards() {
     }
 
     if (!posts || posts.length === 0) {
-        console.warn("⚠️ 未找到任何文章数据，跳过 3D 卡片生成。");
+        console.warn("未找到任何文章数据，跳过 3D 卡片生成。");
         return;
     }
-
-    console.log(`🚀 开始生成 ${posts.length} 个 3D 文章卡片...`);
 
     posts.forEach((post, index) => {
         const color = colorPalette[index % colorPalette.length];
@@ -317,7 +311,6 @@ async function init3DCards() {
     });
 
     scene.add(cardsGroup);
-    console.log("✅ 3D 卡片场景构建完成");
 }
 
 init3DCards();
@@ -340,7 +333,7 @@ if (typeof THREE.OrbitControls !== 'undefined') {
 }
 
 const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
+const mouse = new THREE.Vector2(-1, 1);
 let hoveredCard = null;
 
 function onMouseMove(event) {
@@ -454,6 +447,7 @@ document.querySelectorAll('.bar-menu a:not(#navBackTo3D)').forEach(link => {
 });
 
 const clock = new THREE.Clock();
+const overlay = document.getElementById('articleOverlay');
 
 function animate() {
     requestAnimationFrame(animate);
@@ -518,7 +512,7 @@ function animate() {
         });
     }
 
-    if (cardsGroup.visible && cardsTransition.currentOpacity > 0.1) {
+    if (cardsGroup.visible && cardsTransition.currentOpacity > 0.1 && !overlay.classList.contains('active')) {
         raycaster.setFromCamera(mouse, camera);
         const intersects = raycaster.intersectObjects(cardMeshes);
 

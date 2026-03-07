@@ -1,0 +1,79 @@
+* {
+    cursor: none !important;
+}
+
+#cursor-dot, #cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+    will-change: transform, left, top;
+}
+
+#cursor-dot {
+    width: 16px;
+    height: 16px;
+    background-color: #8a6eff;
+    border-radius: 50%;
+    transition: width 0.2s ease, height 0.2s ease;
+    box-shadow: 0 0 10px rgba(138, 110, 255, 0.5);
+}
+
+#cursor-ring {
+    width: 70px;
+    height: 70px;
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+#cursor-ring svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.triangles {
+    transform-origin: 25px 25px;
+}
+
+.triangle-1, .triangle-2 {
+    fill: none;
+    stroke: #8a6eff;
+    stroke-width: 1;
+    stroke-linejoin: miter;
+    stroke-linecap: round;
+    transform-origin: 25px 25px;
+}
+
+@keyframes rotate-cw {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes rotate-ccw {
+    to { transform: rotate(-360deg); }
+}
+
+.triangle-1 {
+    animation: rotate-cw 4s linear infinite;
+}
+.triangle-2 {
+    animation: rotate-ccw 4s linear infinite;
+}
+
+.hover-trigger {
+    transition: color 0.2s ease;
+}
+
+.hover-trigger:hover ~ #cursor-dot,
+.hover-trigger:hover ~ #cursor-ring,
+body:has(.hover-trigger:hover) #cursor-dot {
+    width: 28px;
+    height: 28px;
+}
+
+body:has(.hover-trigger:hover) #cursor-ring {
+    width: 85px;
+    height: 85px;
+}

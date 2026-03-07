@@ -7,12 +7,11 @@ export async function initBlog() {
     const listContainer = document.getElementById('blogList');
     
     try {
-        console.log("正在请求 config.json...");
         const response = await fetch('config.json');
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         
         postsData = await response.json();
-        console.log(`数据加载成功: ${postsData.top.length + postsData.list.length} 篇文章`);
+        console.log(`文章配置文件加载成功: 共 ${postsData.top.length + postsData.list.length} 篇文章`);
 
         window.blogPostsData = postsData.top;
 
@@ -40,7 +39,7 @@ function renderBlogGrid(posts, container) {
     container.innerHTML = '';
     posts.forEach(post => {
         const article = document.createElement('article');
-        article.className = 'blog-card';
+        article.className = 'blog-card hover-trigger';
         article.dataset.file = post.file;
         article.dataset.title = post.title;
         
@@ -120,43 +119,50 @@ function initPolyhedron(container) {
     animate();
 }
 
+import { ChaosCard } from './components/chaos-card.js';
+
 function renderBlogList(posts, container) {
     container.innerHTML = '';
     
-    posts.forEach(post => {
+    posts.forEach((post, index) => {
         const article = document.createElement('article');
-        article.className = 'blog-card';
+        article.className = 'blog-card hover-trigger';
         article.dataset.file = post.file;
         article.dataset.title = post.title;
         
-        // 关键点：给内部的 div 使用 class 而不是唯一的 id，或者根本不设 id
-        // 这里我们移除 id="polyhedron-canvas"，改用 class="polyhedron-container"
+        const bgText = post.title.length > 16 ? post.title.substring(0, 16) : post.title;
+        const color = '#8a6eff';
+
+        article.dataset.text = bgText;
+        article.dataset.color = color;
+
         article.innerHTML = `
-            <div style="display: flex; align-items: center; width: 100%;">
-                <div class="polyhedron-container" style="width: 60px; height: 60px; margin-right: 15px; position: relative;"></div>
-                <h3 class="card-title" style="margin: 0;">${post.title}</h3>
-            </div>
-            <div class="card-meta">
-                <p class="card-excerpt">${post.excerpt}</p>
+            <div style="flex: 1; position: relative; z-index: 3; display: flex; flex-direction: column; justify-content: center;">
+                <div style="display: flex; align-items: center; width: 100%;">
+                    <div class="polyhedron-container" style="width: 60px; height: 60px; margin-right: 15px; position: relative;"></div>
+                    <h3 class="card-title" style="margin: 0;">${post.title}</h3>
+                </div>
+                <div class="card-meta">
+                    <p class="card-excerpt" style="margin: 0; opacity: 0.85; font-size: 0.95rem; color: #e0e0e0; line-height: 1.5;">
+                        ${post.excerpt}
+                    </p>
+                </div>
             </div>
         `;
         
         article.addEventListener('click', () => {
-            if (window.openArticle) {
-                window.openArticle(post);
-            } else {
-                alert("系统未就绪，请稍后");
-            }
+            if (window.openArticle) window.openArticle(post);
         });
         
         container.appendChild(article);
 
-        // 2. 在循环内部，找到当前 article 下的 container 并初始化
-        const canvasContainer = article.querySelector('.polyhedron-container');
-        initPolyhedron(canvasContainer);
+        const geoContainer = article.querySelector('.polyhedron-container');
+        if (geoContainer && typeof initPolyhedron === 'function') {
+            initPolyhedron(geoContainer, post);
+        }
+
+        new ChaosCard(article);
     });
-    
-    // 移除这里的 addIcosahedron() 调用，因为它已经在循环里处理了
 }
 
 async function openArticle(post) {
@@ -217,7 +223,6 @@ function stopPropagation(e) {
 }
 
 window.closeArticle = function() {
-    console.log("Closing article...");
     const modal = document.getElementById('articleModal');
     const overlay = document.getElementById('articleOverlay');
     

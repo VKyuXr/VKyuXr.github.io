@@ -1,36 +1,183 @@
-#modalContent img {
-    max-width: 100%;
-    border-radius: 8px;
-}
-
-#modalContent pre {
-    background: #1e1e1e;
-    padding: 1rem;
-    border-radius: 6px;
-    overflow-x: auto;
-    color: #d4d4d4;
-}
-
-#modalContent code {
-    font-family: 'Consolas', monospace;
-    background: rgba(255,255,255,0.1);
-    padding: 2px 4px;
-    border-radius: 4px;
-}
-
-#modalContent blockquote {
-    border-left: 4px solid #646cff;
-    margin: 1rem 0;
-    padding-left: 1rem;
-    color: #aaa;
-}
-
-#modalContent h1, #modalContent h2 {
-    margin-top: 1.5rem;
+/* 标题 */
+#modalContent h1,
+#modalContent h2,
+#modalContent h3,
+#modalContent h4,
+#modalContent h5,
+#modalContent h6 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    line-height: 1.25;
     color: #fff;
 }
 
+#modalContent h1 { font-size: 2.2em; border-bottom: 2px solid #444; padding-bottom: 0.3em; }
+#modalContent h2 { font-size: 1.8em; border-bottom: 1px solid #444; padding-bottom: 0.3em; }
+#modalContent h3 { font-size: 1.5em; }
+#modalContent h4 { font-size: 1.2em; }
+#modalContent h5 { font-size: 1.0em; }
+#modalContent h6 { font-size: 0.9em; color: #aaa; }
+
+/* 段落 */
 #modalContent p {
-    line-height: 1.8;
+    margin: 1.2em 0;
     color: #ccc;
+}
+
+/* 链接 */
+#modalContent a {
+    color: #646cff;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+}
+
+#modalContent a:hover {
+    border-bottom-color: #646cff;
+}
+
+/* 列表 */
+#modalContent ul,
+#modalContent ol {
+    margin: 1em 0;
+    padding-left: 2em;
+    color: #ccc;
+}
+
+#modalContent li {
+    margin: 0.5em 0;
+}
+
+#modalContent li > ul,
+#modalContent li > ol {
+    margin: 0.2em 0 0.2em 1.5em;
+}
+
+/* 块引用 */
+#modalContent blockquote {
+    border-left: 4px solid #646cff;
+    margin: 1.5em 0;
+    padding: 0.5em 1em;
+    background: rgba(255,255,255,0.03);
+    border-radius: 0 6px 6px 0;
+    color: #aaa;
+}
+
+#modalContent blockquote p {
+    margin: 0.5em 0;
+    color: #bbb;
+}
+
+/* 行内代码 */
+#modalContent code {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    background: rgba(255,255,255,0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: #f08d49; /* 暖色突出 */
+}
+
+/* 代码块 */
+#modalContent pre {
+    background: #1e1e1e;
+    padding: 1.2rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+    border: 1px solid #3c3c3c;
+    line-height: 1.45;
+}
+
+#modalContent pre code {
+    background: none;        /* 移除行内代码的背景 */
+    padding: 0;              /* 移除内边距 */
+    border-radius: 0;        /* 移除圆角 */
+    color: #d4d4d4;          /* 保持代码块内的文字颜色 */
+    font-size: 0.95em;
+    display: block;          /* 确保块级显示 */
+}
+
+/* 表格 */
+#modalContent table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5em 0;
+    font-size: 0.95em;
+    background: #2a2a2a;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#modalContent th {
+    background: #3a3a3a;
+    color: #fff;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+    border-bottom: 2px solid #4a4a4a;
+}
+
+#modalContent td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #3c3c3c;
+    color: #ccc;
+}
+
+#modalContent tr:last-child td {
+    border-bottom: none;
+}
+
+/* 图片 */
+#modalContent img {
+    max-width: 100%;
+    border-radius: 8px;
+    display: block;
+    margin: 1.5em auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* 水平线 */
+#modalContent hr {
+    border: none;
+    border-top: 2px solid #444;
+    margin: 2em 0;
+}
+
+/* 粗体、斜体 */
+#modalContent strong {
+    color: #fff;
+    font-weight: 600;
+}
+
+#modalContent em {
+    color: #ddd;
+    font-style: italic;
+}
+
+/* 内联元素组合 */
+#modalContent p code,
+#modalContent li code,
+#modalContent blockquote code {
+    background: rgba(255,255,255,0.1); /* 保证行内代码的样式 */
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* 表格中的代码 */
+#modalContent td code {
+    background: rgba(255,255,255,0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* 响应式调整 */
+@media (max-width: 600px) {
+    #modalContent {
+        padding: 1rem;
+    }
+
+    #modalContent h1 { font-size: 1.8em; }
+    #modalContent h2 { font-size: 1.5em; }
 }
