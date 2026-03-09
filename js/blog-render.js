@@ -1,3 +1,7 @@
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
 if (typeof THREE === 'undefined') {
     alert("Three.js 加载失败，请刷新");
 }
@@ -40,15 +44,15 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 document.getElementById('backgroundCanvas').appendChild(renderer.domElement);
 
-const ambientLight = new THREE.AmbientLight(0x40406b);
+const ambientLight = new THREE.AmbientLight(0x40406b, 20);
 scene.add(ambientLight);
-const pointLight1 = new THREE.PointLight(0x6a4eff, 1.8, 40);
+const pointLight1 = new THREE.PointLight(0x6a4eff, 200, 40);
 pointLight1.position.set(6, 8, 8);
 scene.add(pointLight1);
-const pointLight2 = new THREE.PointLight(0xff4da6, 1.2, 30);
+const pointLight2 = new THREE.PointLight(0xff4da6, 500, 30);
 pointLight2.position.set(-7, 3, 10);
 scene.add(pointLight2);
-const backLight = new THREE.PointLight(0x3a2f8a, 1.0);
+const backLight = new THREE.PointLight(0x3a2f8a, 100);
 backLight.position.set(0, 0, -15);
 scene.add(backLight);
 
@@ -184,7 +188,7 @@ function createBackgroundParticles() {
 const bgParticles = createBackgroundParticles();
 scene.add(bgParticles);
 
-const loader = new THREE.GLTFLoader();
+const loader = new GLTFLoader();
 let HofmannKnot = null;
 loader.load(
   'assets/HofmannKnot.glb',
@@ -194,10 +198,11 @@ loader.load(
       if (child.isMesh) {
         child.material = new THREE.MeshStandardMaterial({
           color: 0xffffff,
-          emissive: 0x333333,
+          emissive: 0xffffff,
           wireframe: true,
           metalness: 0.3,
-          roughness: 0.5
+          roughness: 0.5,
+          emissiveIntensity: 0.1
         });
       }
     });
@@ -323,23 +328,19 @@ async function init3DCards() {
 
 init3DCards();
 
-let controls;
-if (typeof THREE.OrbitControls !== 'undefined') {
-    controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
-    controls.autoRotate = true;
-    controls.autoRotateSpeed = 1.0;
-    controls.enableZoom = false;
-    controls.enablePan = true;
-    controls.maxPolarAngle = Math.PI * 2 / 3; 
-    controls.minPolarAngle = Math.PI / 3;
-    controls.minDistance = 5;
-    controls.maxDistance = 30;
-    controls.target.set(0, 0.8, 0);
-} else {
-    controls = { update: () => {}, autoRotate: false };
-}
+const controls = new OrbitControls(camera, renderer.domElement);
+
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+controls.autoRotate = true;
+controls.autoRotateSpeed = 1.0;
+controls.enableZoom = false;
+controls.enablePan = true;
+controls.maxPolarAngle = Math.PI * 2 / 3; 
+controls.minPolarAngle = Math.PI / 3;
+controls.minDistance = 5;
+controls.maxDistance = 30;
+controls.target.set(0, 0.8, 0);
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2(-1, 1);
@@ -481,7 +482,7 @@ document.querySelectorAll('.bar-menu a:not(#navBackTo3D)').forEach(link => {
     link.addEventListener('click', (e) => e.preventDefault());
 });
 
-const clock = new THREE.Clock();
+const clock = new THREE.Timer();
 const overlay = document.getElementById('articleOverlay');
 
 function animate() {
@@ -591,19 +592,15 @@ const cursorDot = document.getElementById('cursor-dot');
 const cursorRing = document.getElementById('cursor-ring');
 
 if (controls && typeof controls.addEventListener === 'function') {
-    console.log('[Cursor] 成功绑定 OrbitControls 事件监听器');
 
     controls.addEventListener('start', () => {
-        console.log('[Cursor] 事件: start (用户开始拖动)');
         cursorDot.style.opacity = "0";
         cursorRing.style.opacity = "0";
     });
     
     controls.addEventListener('end', () => {
-        console.log('[Cursor] 事件: end (用户停止拖动)，计划 100ms 后恢复光标...');
         
         setTimeout(() => {
-            console.log('[Cursor] 计时器到期 -> 执行恢复光标');
             cursorDot.style.opacity = "1";
             cursorRing.style.opacity = "1";
         }, 100);

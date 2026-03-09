@@ -1,4 +1,5 @@
 // js/blog-loader.js
+import * as THREE from 'three';
 
 let postsData = {}; 
 
